@@ -42,8 +42,8 @@ void MainWindow::on_start_clicked()
 //    }
 
     thread.startSlave(currentPortName,
-                       10000,
-                        "test");
+                       500,
+                        "gg");
 }
 
 void MainWindow::on_stop_clicked()
@@ -53,9 +53,7 @@ void MainWindow::on_stop_clicked()
 
 void MainWindow::showResponse(const QString &s)
 {
-    long long tmp = 0x03FELL | ((ui->comboBox_time->currentIndex() + 0x31) << 16);
-    tmp |= ((ui->comboBox_count->currentIndex() + 0x31) << 24);
-    tmp |= 0xffLL << 32;
+
 }
 
 void MainWindow::processError(const QString &s)
