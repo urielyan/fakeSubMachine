@@ -42,7 +42,7 @@ void MainWindow::on_start_clicked()
 //    }
 
     thread.startSlave(currentPortName,
-                       500,
+                       2000,
                         "gg");
 }
 
@@ -51,9 +51,22 @@ void MainWindow::on_stop_clicked()
 
 }
 
-void MainWindow::showResponse(const QString &s)
+void MainWindow::showResponse(const QByteArray &s)
 {
+    qDebug() << __FUNCTION__ << s.toHex();
 
+    if (s[1] == 0x03)
+    {
+        QByteArray a;
+        a.resize(5);
+        a[0] = 0xfe;
+        a[1] = 0x03;
+        a[2] = 0x39;
+        a[3] = 0x39;
+        a[4] = 0xff;
+        thread.setResponse(a);
+        qDebug() << __FUNCTION__ << a.toHex();
+    }
 }
 
 void MainWindow::processError(const QString &s)

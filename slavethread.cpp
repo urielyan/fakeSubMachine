@@ -71,7 +71,7 @@ SlaveThread::~SlaveThread()
 //! [0]
 
 //! [1] //! [2]
-void SlaveThread::startSlave(const QString &portName, int waitTimeout, const QString &response)
+void SlaveThread::startSlave(const QString &portName, int waitTimeout, const QByteArray &response)
 {
 //! [1]
     QMutexLocker locker(&mutex);
@@ -129,7 +129,7 @@ void SlaveThread::run()
             if (serial.waitForBytesWritten(waitTimeout)) {
                 QString request(requestData);
 //! [12]
-                emit this->request(request);
+                emit this->request(requestData);
 //! [10] //! [11] //! [12]
             } else {
                 emit timeout(tr("Wait write response timeout %1")
@@ -153,4 +153,14 @@ void SlaveThread::run()
         mutex.unlock();
     }
 //! [13]
+}
+
+QString SlaveThread::getResponse() const
+{
+    return response;
+}
+
+void SlaveThread::setResponse(const QByteArray &value)
+{
+    response = value;
 }

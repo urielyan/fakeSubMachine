@@ -23,7 +23,7 @@ private slots:
 
     void on_stop_clicked();
 private slots:
-    void showResponse(const QString &s);
+    void showResponse(const QByteArray &s);
     void processError(const QString &s);
     void processTimeout(const QString &s);
 

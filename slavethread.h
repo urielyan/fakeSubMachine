@@ -64,17 +64,20 @@ public:
     explicit SlaveThread(QObject *parent = nullptr);
     ~SlaveThread();
 
-    void startSlave(const QString &portName, int waitTimeout, const QString &response);
+    void startSlave(const QString &portName, int waitTimeout, const QByteArray &response);
     void run() Q_DECL_OVERRIDE;
 
+    QString getResponse() const;
+    void setResponse(const QByteArray &value);
+
 signals:
-    void request(const QString &s);
+    void request(const QByteArray &s);
     void error(const QString &s);
     void timeout(const QString &s);
 
 private:
     QString portName;
-    QString response;
+    QByteArray response;
     int waitTimeout;
     QMutex mutex;
     bool quit;
